@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+#settings.json
+.vscode/settings.json
+
 # production
 /build
 
@@ -34,3 +37,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#package-lock
+package-lock.json
