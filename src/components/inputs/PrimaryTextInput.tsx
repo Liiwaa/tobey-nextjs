@@ -2,16 +2,18 @@ import React from 'react';
 import { TextField, InputLabel, Box, NoSsr } from '@mui/material';
 import styled from '@mui/material/styles/styled';
 import colorTheme from '@/themes/ColorTheme';
+import InputError from '../InputError';
 
-interface MyTextFieldProps {
+interface PrimaryTextFieldProps {
   id: string;
   label: string;
   value: string;
-  onChange: (newValue: string) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   required?: boolean;
   disabled?: boolean;
   helperText?: string;
+  error?: string;
 }
 
 const StyledInputLabel = styled(InputLabel)(() => ({
@@ -35,7 +37,7 @@ const StyledTextField = styled(TextField)(() => ({
     },
 }));
 
-const PrimaryTextInput: React.FC<MyTextFieldProps> = ({ id, label, value, onChange, type = "text", required, disabled, helperText }) => {
+const PrimaryTextInput: React.FC<PrimaryTextFieldProps> = ({ id, label, value, onChange, type = "text", required, disabled, helperText, error }) => {
   return (
     <NoSsr>
         <Box sx={{ marginTop:'15px', marginBottom:'15px' }}>
@@ -44,13 +46,14 @@ const PrimaryTextInput: React.FC<MyTextFieldProps> = ({ id, label, value, onChan
                 id={id}
                 variant="outlined"
                 value={value}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={onChange}
                 fullWidth
                 margin="dense"
                 type={type}
                 required={required}
                 disabled={disabled}
                 helperText={helperText} />
+            <InputError>{error}</InputError>
         </Box>
     </NoSsr>
 
