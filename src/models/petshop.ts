@@ -9,4 +9,4 @@ export const mapPetshopToPetshopDTO = (petshop: Petshop): PetshopDTO => ({
     opening_time: petshop.openingTime,
     closing_time: petshop.closingTime,
     address_id: petshop.address,
-  });
+});

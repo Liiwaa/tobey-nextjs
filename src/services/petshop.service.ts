@@ -25,7 +25,6 @@ export const createPetshopWithOwner = async (petshop: Petshop, ownerData: UserRe
 
   try {
     const result = await postRequest<PetshopWithOwnerDTO>(PetshopAPI, petshopWithOwnerDTO);
-    console.log('result', result);
     response.payload = result.data;
   } catch (error: any) {
     response.error = error.errors;
