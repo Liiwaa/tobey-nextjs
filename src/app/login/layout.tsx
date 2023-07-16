@@ -1,5 +1,5 @@
 "use client";
-import GeneralLayout from "@/components/GeneralLayout";
+import AuthLayout from "@/components/AuthLayout";
 import PageHead from "@/components/heads/pageHead";
 import Theme from "@/themes/Theme";
 import React from "react";
@@ -12,9 +12,9 @@ const LoginLayout = ({children}: LayoutProps) => {
     return (
         <Theme>
             <PageHead />
-            <GeneralLayout title="Login">
+            <AuthLayout title="Login">
                 {children} 
-            </GeneralLayout>            
+            </AuthLayout>            
         </Theme>
     );
 };
