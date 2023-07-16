@@ -9,3 +9,6 @@ export const LogoutUserAPI = '/api/logout';
 export const ContactUsAPI = '/api/contact_us';
 
 export const PetshopAPI = '/api/petshop'
+
+export const EmployeeAPI = '/api/employee'
+export const EmployeeRoleAPI = '/api/employee-role' // lii - not generated yet

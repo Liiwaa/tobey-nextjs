@@ -7,11 +7,16 @@ interface PageProps {
 
 function Page({ title, children }: PageProps) {
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" sx={{ mb: 2 }}>
+    <Box sx={{ margin: '1rem' }}>
+      <Typography variant="h4" sx={{ marginBottom: '1rem' }}>
         {title}
       </Typography>
-      <Box>
+      <Box
+        sx={{
+          border: '1px solid #ccc',
+          padding: '1rem',
+        }}
+      >
         {children}
       </Box>
     </Box>

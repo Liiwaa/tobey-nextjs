@@ -12,7 +12,7 @@ const EmployeeLayout = ({children}: LayoutProps) => {
     return (
         <Theme>
             <PageHead />
-            <GeneralLayout title="Employee List">
+            <GeneralLayout title="Employees">
                 {children} 
             </GeneralLayout>            
         </Theme>

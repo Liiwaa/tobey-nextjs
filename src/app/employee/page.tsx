@@ -1,35 +1,62 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Box, Typography, Card, CardContent, Grid } from '@mui/material';
-import EmployeeCard from '../../components/employee/employeeCard';
+import GeneralFilter from '@/components/GeneralFilter';
+import EmployeeDataRow from '@/components/employee/employeeDataRow';
+import { getEmployeeList } from '@/services/employee.service';
+import { IEmployee } from '@/interfaces/components/Employee';
 
 const Employees = () => {
 	const [roles, setRoles] = useState(['Manager','Secretary','Vet', 'Groomer']);
+	const [empoyees, setEmployees] = useState<IEmployee[]>([]);
 
 	const handleEmployeeClick = (employeeName: string) => {
 		// event.preventDefault()
 		// router.push(`/employee/${employeeName}`);
 	};
 
+	useEffect(() => {
+		const fetchEmployeeList = async () => {
+			try {
+			  const response = await getEmployeeList();
+			  if (response.payload) {
+				setEmployees(response.payload);
+			  } else {
+				console.log('Error:', response.error); // lii - error popup or something
+			  }
+			} catch (error: any) {
+			  console.log('Error:', error.message);
+			}
+		};
+	  
+		fetchEmployeeList();
+	}, [])
+
 	return (
 		<Box>
-			<Button variant="contained" color="primary" sx={{ mb: 2 }}>
-				Create New Employee
-			</Button>
+			<Box display="flex" justifyContent="space-between" sx={{mb:2}}>
+				<Box>
+					<GeneralFilter
+					onReset={() => console.log('reset')}
+					onEmployeeRoleChange={(role) => console.log(role)}
+					onEmployeeNameChange={(name) => console.log(name)}
+					/>
+				</Box>
+				<Box>
+					<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', mb: 2 }}>
+					Create New Employee
+					</Button>
+				</Box>
+			</Box>
 
-			{roles.map((role) => (
-				<Card key={role} className="primary-card">
-					<CardContent>
-						<Typography variant="h5" component="h2" sx={{ borderBottom:1, borderColor:'#BEBEBE', mb:2 }} gutterBottom>
-							{role}
-						</Typography>
-						<Grid container spacing={2}>
-							{['Sara Lee', 'Adam Smith', 'Steve Johnson'].map((employeeName,ind) => (
-								<EmployeeCard  key={employeeName} employeeName={employeeName} onClick={handleEmployeeClick} />
-							))}
-						</Grid>
-					</CardContent>
-				</Card>
+			{['Sara Lee', 'Adam Smith', 'Steve Johnson'].map((employeeName,ind) => (
+				<EmployeeDataRow
+					icon="path/to/icon.png"
+					iconBackgroundColor="#ff0000"
+					employeeRoleValue="Manager"
+					employeeNameValue="John Doe"
+					startDateValue="2023-07-15"
+				/>
 			))}
 		</Box>
 	);
