@@ -11,7 +11,16 @@ export interface IEmployee {
     createdAt: string;
     updatedAt: string;
     userRole?: EmployeeRole[];
-  }
+}
+
+export interface INewEmployee {
+    firstName: string;
+    lastName: string;
+    email: string;
+    petshopId: number;
+    addressId: number | null;
+    userRole?: EmployeeRole[];
+}
 
 export interface EmployeeDTO {
     id: string;
@@ -24,4 +33,13 @@ export interface EmployeeDTO {
     created_at: string;
     updated_at: string;
     user_role?: EmployeeRoleDTO[];
-  }
+}
+
+export interface NewEmployeeDTO {
+    first_name: string;
+    last_name: string;
+    email: string;
+    petshop_id: number;
+    address_id: number | null;
+    user_role?: EmployeeRoleDTO[];
+}

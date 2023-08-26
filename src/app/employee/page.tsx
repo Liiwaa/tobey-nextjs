@@ -5,8 +5,11 @@ import GeneralFilter from '@/components/GeneralFilter';
 import EmployeeDataRow from '@/components/employee/employeeDataRow';
 import { getEmployeeList } from '@/services/employee.service';
 import { IEmployee } from '@/interfaces/components/Employee';
+import AddEmployeeModel from '@/components/models/AddEmployee';
 
 const Employees = () => {
+	const [isAddEmployeeModelOpen, setIsAddEmployeeModelOpen] = useState(false);
+
 	const [roles, setRoles] = useState(['Manager','Secretary','Vet', 'Groomer']);
 	const [empoyees, setEmployees] = useState<IEmployee[]>([]);
 
@@ -15,20 +18,25 @@ const Employees = () => {
 		// router.push(`/employee/${employeeName}`);
 	};
 
+	const handleEmployeeSaved = () => {
+		fetchEmployeeList();
+	};
+
+
+	const fetchEmployeeList = async () => {
+		try {
+		  const response = await getEmployeeList();
+		  if (response.payload) {
+			setEmployees(response.payload);
+		  } else {
+			console.log('Error:', response.error); // lii - error popup or something
+		  }
+		} catch (error: any) {
+		  console.log('Error:', error.message);
+		}
+	};
+
 	useEffect(() => {
-		const fetchEmployeeList = async () => {
-			try {
-			  const response = await getEmployeeList();
-			  if (response.payload) {
-				setEmployees(response.payload);
-			  } else {
-				console.log('Error:', response.error); // lii - error popup or something
-			  }
-			} catch (error: any) {
-			  console.log('Error:', error.message);
-			}
-		};
-	  
 		fetchEmployeeList();
 	}, [])
 
@@ -43,8 +51,12 @@ const Employees = () => {
 					/>
 				</Box>
 				<Box>
-					<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', mb: 2 }}>
-					Create New Employee
+					<Button 
+						variant="contained" 
+						color="primary" 
+						sx={{ marginLeft: 'auto', mb: 2 }}
+						onClick={()=>setIsAddEmployeeModelOpen(true)}>
+						Add New Employee
 					</Button>
 				</Box>
 			</Box>
@@ -58,6 +70,8 @@ const Employees = () => {
 					startDateValue="2023-07-15"
 				/>
 			))}
+
+			<AddEmployeeModel isOpen={isAddEmployeeModelOpen} onClose={()=>setIsAddEmployeeModelOpen(false)} onSave={handleEmployeeSaved} />
 		</Box>
 	);
 };

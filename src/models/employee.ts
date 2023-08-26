@@ -1,15 +1,15 @@
 import { EmployeeDTO, IEmployee } from "@/interfaces/components/Employee";
 
-export const mapIEmployeeToEmployeeDTO = (employee: IEmployee): EmployeeDTO => ({
-    id: employee.id,
-    first_name: employee.firstName,
-    last_name: employee.lastName,
-    email: employee.email,
-    petshop_id: employee.petshopId,
-    address_id: employee.addressId,
-    email_verified_at: employee.emailVerifiedAt,
-    created_at: employee.createdAt,
-    updated_at: employee.updatedAt,
+export const mapIEmployeeToEmployeeDTO = (employee: Partial<IEmployee>): Partial<EmployeeDTO> => ({
+    ...(employee.id && { id: employee.id }),
+    ...(employee.firstName && { first_name: employee.firstName }),
+    ...(employee.lastName && { last_name: employee.lastName }),
+    ...(employee.email && { email: employee.email }),
+    ...(employee.petshopId && { petshop_id: employee.petshopId }),
+    ...(employee.addressId && { address_id: employee.addressId }),
+    ...(employee.emailVerifiedAt && { email_verified_at: employee.emailVerifiedAt }),
+    ...(employee.createdAt && { created_at: employee.createdAt }),
+    ...(employee.updatedAt && { updated_at: employee.updatedAt }),
 });
 
 export const mapEmployeeDTOToIEmployee = (employeeDTO: EmployeeDTO): IEmployee => ({
@@ -25,7 +25,7 @@ export const mapEmployeeDTOToIEmployee = (employeeDTO: EmployeeDTO): IEmployee =
 });
 
 export const mapIEmployeesToEmployeeDTOs = (employees: IEmployee[]): EmployeeDTO[] =>
-  employees.map(mapIEmployeeToEmployeeDTO);
+    employees.map((employee) => mapIEmployeeToEmployeeDTO(employee) as EmployeeDTO);
 
 export const mapEmployeeDTOsToIEmployees = (employeeDTOs: EmployeeDTO[]): IEmployee[] =>
-  employeeDTOs.map(mapEmployeeDTOToIEmployee);
+    employeeDTOs.map(mapEmployeeDTOToIEmployee);
