@@ -6,6 +6,7 @@ import EmployeeDataRow from '@/components/employee/employeeDataRow';
 import { getEmployeeList } from '@/services/employee.service';
 import { IEmployee } from '@/interfaces/components/Employee';
 import AddEmployeeModel from '@/components/models/AddEmployee';
+import GeneralLayout from '@/components/GeneralLayout';
 
 const Employees = () => {
 	const [isAddEmployeeModelOpen, setIsAddEmployeeModelOpen] = useState(false);
@@ -41,7 +42,7 @@ const Employees = () => {
 	}, [])
 
 	return (
-		<Box>
+		<GeneralLayout title="Employees">
 			<Box display="flex" justifyContent="space-between" sx={{mb:2}}>
 				<Box>
 					<GeneralFilter
@@ -61,8 +62,9 @@ const Employees = () => {
 				</Box>
 			</Box>
 
-			{['Sara Lee', 'Adam Smith', 'Steve Johnson'].map((employeeName,ind) => (
+			{['Sara Lee', 'Adam Smith', 'Steve Johnson'].map((employeeName,index) => (
 				<EmployeeDataRow
+					key={index}
 					icon="path/to/icon.png"
 					iconBackgroundColor="#ff0000"
 					employeeRoleValue="Manager"
@@ -72,7 +74,7 @@ const Employees = () => {
 			))}
 
 			<AddEmployeeModel isOpen={isAddEmployeeModelOpen} onClose={()=>setIsAddEmployeeModelOpen(false)} onSave={handleEmployeeSaved} />
-		</Box>
+		</GeneralLayout>   
 	);
 };
 

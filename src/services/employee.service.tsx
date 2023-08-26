@@ -1,4 +1,4 @@
-import { EmployeeAPI } from "@/constants/api-routes";
+import { EmployeeAPI, EmployeeIdAPI } from "@/constants/api-routes";
 import { EmployeeDTO, IEmployee, INewEmployee } from "@/interfaces/components/Employee";
 import { mapEmployeeDTOsToIEmployees, mapEmployeeDTOToIEmployee, mapIEmployeeToEmployeeDTO } from "@/models/employee";
 import { ServiceResponse } from "@/models/serviceResponse";
@@ -32,4 +32,19 @@ export const createEmployee = async (newEmployee: INewEmployee): Promise<Service
     }
   
     return response;
+};
+
+export const getEmployee = async (id: string): Promise<ServiceResponse<IEmployee>> => {
+  const response: ServiceResponse<IEmployee> = new ServiceResponse();
+
+  try {
+  const url = EmployeeIdAPI(id);
+    const result = await getRequest<EmployeeDTO>(url);
+    response.payload = mapEmployeeDTOToIEmployee(result.data);
+  } catch (error: any) {
+    response.error = error.errors;
+    response.message = error.message;
+  }
+
+  return response;
 };

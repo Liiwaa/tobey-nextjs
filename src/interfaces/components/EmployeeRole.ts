@@ -1,7 +1,7 @@
 export interface EmployeeRole {
     id: number;
     value: string;
-    StartDate: Date;
+    StartDate: string;
   }
 
 
@@ -12,10 +12,10 @@ export interface EmployeeRoleDTO {
     role_id: number;
     created_at: string;
     updated_at: string;
-    role: EmployeeRoleDTO;
+    role: RoleDTO;
   }
   
-export interface EmployeeRoleDTO {
+export interface RoleDTO {
     id: number;
     value: string;
 }
