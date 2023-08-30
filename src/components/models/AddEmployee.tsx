@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import PopupModel from './PopupModel';
 import { IEmployee, INewEmployee } from '@/interfaces/components/Employee';
 import { createEmployee } from '@/services/employee.service';
+import { IJob } from '@/interfaces/components/EmployeeJob';
 
 interface AddEmployeeModelProps {
   isOpen: boolean;
@@ -18,13 +19,22 @@ const AddEmployeeModel: React.FC<AddEmployeeModelProps> = ({ isOpen, onClose, on
   const [employeeInfo, setEmployeeInfo] = useState<INewEmployee>({
     firstName: '',
     lastName: '',
-    email:'',
-    petshopId:0,//lii add it
-    addressId:0
+    email: '',
+    gender: '',
+    startDate: '',
+    jobId: '',
+    phone: '',
+    dateOfBirth: '',
+    addressId: null,
   });
 
+  const [jobs, setJobs] = useState<IJob[]>([])
+
   const handleGenderChange = (event: SelectChangeEvent<string>) => {
-    setEmployeeInfo((prevEmployeeInfo) => ({ ...prevEmployeeInfo, gender: event.target.value }));
+    setEmployeeInfo((prevEmployeeInfo) => ({ ...prevEmployeeInfo, gender: event.target.value as "male"|"female"|"" }));
+  };
+  const handleJobChange = (event: SelectChangeEvent<string>) => {
+    setEmployeeInfo((prevEmployeeInfo) => ({ ...prevEmployeeInfo, job: event.target.value }));
   };
 
   const handleSave = async () => {
@@ -48,7 +58,17 @@ const AddEmployeeModel: React.FC<AddEmployeeModelProps> = ({ isOpen, onClose, on
         value={employeeInfo.lastName}
         onChange={(e) => setEmployeeInfo({ ...employeeInfo, lastName: e.target.value })}
       />
-      {/* <TextField
+      <TextField
+        label="Email"
+        value={employeeInfo.email}
+        onChange={(e) => setEmployeeInfo({ ...employeeInfo, email: e.target.value })}
+      />
+      <TextField
+        label="Phone"
+        value={employeeInfo.phone}
+        onChange={(e) => setEmployeeInfo({ ...employeeInfo, phone: e.target.value })}
+      />
+      <TextField
         label="Date of Birth"
         type="date"
         value={employeeInfo.dateOfBirth}
@@ -60,7 +80,22 @@ const AddEmployeeModel: React.FC<AddEmployeeModelProps> = ({ isOpen, onClose, on
           <MenuItem value="male">Male</MenuItem>
           <MenuItem value="female">Female</MenuItem>
         </Select>
-      </FormControl> */}
+      </FormControl>
+      <FormControl>
+        <InputLabel>Job</InputLabel>
+        <Select value={employeeInfo.gender} onChange={handleJobChange}>
+          {jobs.map(job => {
+            return <MenuItem value={job.id}>{job.value}</MenuItem>
+          })}
+        </Select>
+      </FormControl>
+      <TextField
+        label="Start Date"
+        type="date"
+        value={employeeInfo.dateOfBirth}
+        onChange={(e) => setEmployeeInfo({ ...employeeInfo, startDate: e.target.value })}
+      />
+      {/* address */}
     </div>
   );
 

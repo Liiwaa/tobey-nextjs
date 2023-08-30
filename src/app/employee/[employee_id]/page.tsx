@@ -25,8 +25,10 @@ const Employee = () => {
     firstName: "John",
     lastName: "Doe",
     email: "doe@example.com",
+    gender: "male",
     petshopId: 2,
     addressId: null,
+    startDate: "",
     emailVerifiedAt: null,
     createdAt: "2023-08-21 11:00:00",
     updatedAt: "2023-08-21 11:00:00",
@@ -34,7 +36,8 @@ const Employee = () => {
       id: 1,
       value: "employee",
       StartDate: "2023-08-21 11:00:01"
-    }]
+    }],
+    job: "groomer"
   });
   const [title, setTitle] = useState<string>('...');
   const [activeTab, setActiveTab] = useState(0);
@@ -77,7 +80,7 @@ const Employee = () => {
   const renderChosenTab = () => {
     switch (activeTab) {
       case 0:
-        return <EmployeeProfileTab />;
+        return <EmployeeProfileTab {...employee} />;
         break;
       case 1:
         return <EmloyeeAppointmentsTab />;
