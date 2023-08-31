@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, NoSsr } from '@mui/material';
 
 
-const EmployeeProfileTab: React.FC = () => {
+const CaregiverListOfPetsTab: React.FC = () => {
   return (
     <NoSsr>
         <Box sx={{ marginTop:'15px', marginBottom:'15px' }}>
@@ -13,4 +13,4 @@ const EmployeeProfileTab: React.FC = () => {
   );
 };
 
-export default EmployeeProfileTab;
+export default CaregiverListOfPetsTab;
